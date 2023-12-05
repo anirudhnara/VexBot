@@ -7,3 +7,7 @@ def prediction(red1, red2, blue1, blue2)
     r = requests.get(request_url)
     return r.json()
 
+def team_stats(team)
+    request_url = "https://vrc-data-analysis.com/v1/team/" + team
+    r = requests.get(request_url)
+    return r.json()
