@@ -18,11 +18,7 @@ bot = commands.Bot()
 async def on_ready():
     print(f'We have logged in as {bot.user}')
 
-async def callback(self, interaction: nextcord.Interaction):
-        if self.values[0] == "Option 1":
-            await interaction.response.edit_message("meow")
-
-@bot.slash_command(description="mrow",)
+@bot.slash_command(description="Show information on a team",)
 async def team(
         interaction: nextcord.Interaction, team_choice: str = SlashOption(description="Team number", ),):
     my_team = find_team(team_choice)
