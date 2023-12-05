@@ -7,9 +7,9 @@ from robotevents import *
 from os import environ
 import asyncio
 
-token = "MTE4MTM1Mjc4MTY1NTg1NTExNA.G_g07g.flOz7_S_hyhGGq4nJxolqW2mpNt9ua27g1XuJk"
+token = ""
 
-TESTING_GUILD_ID = 1149511246253674596  # Replace with your guild ID
+TESTING_GUILD_ID =   # Replace with your guild ID
 
 bot = commands.Bot()
 
