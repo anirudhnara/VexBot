@@ -9,7 +9,7 @@ import asyncio
 
 token = ""
 
-TESTING_GUILD_ID =   # Replace with your guild ID
+TESTING_GUILD_ID = int # Replace with your guild ID
 
 bot = commands.Bot()
 
@@ -22,14 +22,16 @@ async def on_ready():
 async def team(
         interaction: nextcord.Interaction, team_choice: str = SlashOption(description="Team number", ),):
     my_team = find_team(team_choice)
-    embed = nextcord.Embed(title=team_choice, url="https://www.robotevents.com/teams/VRC/" + team_choice)
+    embed = nextcord.Embed(title=team_choice, url="https://www.robotevents.com/teams/VRC/" + team_choice + " " + my_team.get("team_name"))
     embed.add_field(name="Organization", value=my_team.get("organization"), inline=True)
     embed.add_field(name="Grade", value=my_team.get("grade"), inline=True)
     embed.add_field(name="Active", value=my_team.get("registered"), inline=True)
+    embed.add_field(name="Location", value=location_data(my_team).get("city") + ", " + location_data(my_team).get("region") + ", " + location_data(my_team).get("country"), inline=False)
+
 
     view = View(timeout=None)
     select = nextcord.ui.StringSelect()
-    select.add_option(label="Team Info", emoji="🗿", value="team")
+    select.add_option(label="Team Info", emoji="🪪", value="team")
     select.add_option(label="Awards", emoji="🏆", value="awards")
     select.add_option(label="Skills", emoji="📄", value="skills")
     select.add_option(label="Trueskill", emoji="📊", value="trueskill")
@@ -41,6 +43,7 @@ async def team(
             embed.add_field(name="Organization", value=my_team.get("organization"), inline=True)
             embed.add_field(name="Grade", value=my_team.get("grade"), inline=True)
             embed.add_field(name="Active", value=my_team.get("registered"), inline=True)
+            embed.add_field(name="Location", value=location_data(my_team).get("city") + ", " + location_data(my_team).get("region") + ", " + location_data(my_team).get("country"))
             await interaction.response.edit_message(embed=embed)
 
         elif select.values[0] == "awards":
@@ -61,6 +64,8 @@ async def team(
 
         elif select.values[0] == "trueskill":
             embed.clear_fields()
+            embed.add_field(name="Trueskill Ranking", value=team_trueskill_ranking(team_choice), inline=True)
+            embed.add_field(name="Trueskill Value", value=team_trueskill_value(team_choice), inline=True)
             await interaction.response.edit_message(embed=embed)
 
         elif select.values[0] == "events":
@@ -80,5 +85,17 @@ async def team(
     view.add_item(select)
 
     await interaction.send(embed=embed, view=view)
+
+@bot.slash_command(description="Get trueskill match prediction",)
+async def predict(
+        interaction: nextcord.Interaction,
+        red1: str = SlashOption(description="Team number", ),
+        red2: str = SlashOption(description="Team number", ),
+        blue1: str = SlashOption(description="Team number", ),
+        blue2: str = SlashOption(description="Team number", ),):
+        pred = prediction(red1, red2, blue1, blue2)
+        embed = nextcord.Embed(title="{} {} vs {} {}".format(red1 ,red2, blue1, blue2))
+        embed.add_field(name="Prediction", value=pred.get("prediction_msg"), inline=True)
+        await interaction.send(embed=embed)
 
 bot.run(token)
