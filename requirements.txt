@@ -1,0 +1,6 @@
+nextcord
+typing
+os
+asyncio
+requests
+json
