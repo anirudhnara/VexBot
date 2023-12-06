@@ -34,7 +34,7 @@ async def team(
     select.add_option(label="Team Info", emoji="🪪", value="team")
     select.add_option(label="Awards", emoji="🏆", value="awards")
     select.add_option(label="Skills", emoji="📄", value="skills")
-    select.add_option(label="Trueskill", emoji="📊", value="trueskill")
+    #select.add_option(label="Trueskill", emoji="📊", value="trueskill")
     select.add_option(label="Events", emoji="🗓️", value="events")
 
     async def select_callback(interaction):
@@ -64,8 +64,8 @@ async def team(
 
         elif select.values[0] == "trueskill":
             embed.clear_fields()
-            embed.add_field(name="Trueskill Ranking", value=team_trueskill_ranking(team_choice), inline=True)
-            embed.add_field(name="Trueskill Value", value=team_trueskill_value(team_choice), inline=True)
+            #embed.add_field(name="Trueskill Ranking", value=team_trueskill_ranking(team_choice), inline=True)
+            #embed.add_field(name="Trueskill Value", value=team_trueskill_value(team_choice), inline=True)
             await interaction.response.edit_message(embed=embed)
 
         elif select.values[0] == "events":
