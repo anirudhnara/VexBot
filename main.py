@@ -94,7 +94,7 @@ async def predict(
         red2: str = SlashOption(description="Team number", ),
         blue1: str = SlashOption(description="Team number", ),
         blue2: str = SlashOption(description="Team number", ),):
-        pred = predict(red1, red2, blue1, blue2)
+        pred = prediction(red1, red2, blue1, blue2)
         embed = nextcord.Embed(title="{} {} vs {} {}".format(red1 ,red2, blue1, blue2))
         embed.add_field(name="Prediction", value=pred.get("prediction_msg"), inline=True)
         await interaction.send(embed=embed)
