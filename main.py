@@ -7,7 +7,7 @@ from robotevents import *
 from os import environ
 import asyncio
 
-token = ""
+token = os.environ["TOKEN"]
 
 TESTING_GUILD_ID = int # Replace with your guild ID
 
