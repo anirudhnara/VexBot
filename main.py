@@ -87,10 +87,10 @@ async def team(
 
     #         await interaction.response.edit_message(embed=embed)
 
-    select.callback = select_callback
-    view.add_item(select)
+    # select.callback = select_callback
+    # view.add_item(select)
 
-    await interaction.send(embed=embed, view=view)
+    # await interaction.send(embed=embed, view=view)
 
 @bot.slash_command(description="Get trueskill match prediction",)
 async def predict(
